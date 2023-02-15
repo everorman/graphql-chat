@@ -21,7 +21,7 @@ export const resolvers = {
     addMessage: async (_root, { input }, { userId }) => {
       rejectIf(!userId);
       const message = await Message.create({ from: userId, text: input.text });
-      pubSub.publish('MESSAGE_ADDED', { messageAdded });
+      pubSub.publish('MESSAGE_ADDED', { messageAdded: message });
       return message;
     },
   },
