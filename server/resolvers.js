@@ -21,6 +21,7 @@ export const resolvers = {
     addMessage: async (_root, { input }, { userId }) => {
       rejectIf(!userId);
       const message = await Message.create({ from: userId, text: input.text });
+      console.log('here');
       pubSub.publish('MESSAGE_ADDED', { messageAdded: message });
       return message;
     },
@@ -28,7 +29,10 @@ export const resolvers = {
 
   Subscription: {
     messageAdded: {
-      subscribe: () => pubSub.asyncIterator('MESSAGE_ADDED')
+      subscribe: (_root, _args, context) => {
+        rejectIf(!userId);
+        return pubSub.asyncIterator('MESSAGE_ADDED');
+      }
     }
   }
 };
