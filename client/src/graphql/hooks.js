@@ -26,9 +26,9 @@ export function useMessages() {
   useSubscription(MESSAGE_ADDED_SUBSCRIPTION, {
     onSubscriptionData: ({ client, subscriptionData }) => {
       const message = subscriptionData.data.message;
-      client.cache.updateQuery({ query: MESSAGES_QUERY }, ({ messages }) => {
+      client.cache.updateQuery({ query: MESSAGES_QUERY }, ({ messages }))=> {
         return { messages: [...messages, message] };
-      });
+      }
     }
   });
   return {

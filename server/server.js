@@ -40,9 +40,7 @@ function getHttpContext({ req }) {
 }
 
 function getWsContext({ connectionParams }) {
-  console.log('Hola');
   const token = connectionParams?.accessToken;
-  console.log(connectionParams);
   if (token) {
     const payload = jwt.verify(token, JWT_SECRET);
     return { userId: payload.sub };
